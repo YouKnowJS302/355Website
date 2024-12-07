@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Programming Tutorial</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-rust.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Rust Programming Tutorial</h1>
+    
+    <nav>
+        <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#entry-point">Entry Point</a></li>
+            <li><a href="#data-types">Data Types</a></li>
+            <li><a href="#control-structures">Control Structures</a></li>
+            <li><a href="#functions">Functions</a></li>
+            <li><a href="#data-structures">Data Structures</a></li>
+            <li><a href="#custom-types">Custom Types</a></li>
+            <li><a href="#memory-management">Memory Management</a></li>
+            <li><a href="#videos">Video Walkthroughs</a></li>
+        </ul>
+    </nav>
+
+    <div class="section" id="introduction">
+        <div class="explanation">
+            <h2>Introduction to Rust</h2>
+            <p>Rust is a systems programming language that emphasizes safety, concurrency, and performance. It achieves memory safety without a garbage collector, using a unique ownership model. This model ensures that memory is managed efficiently and safely, preventing common bugs such as null pointer dereferencing and buffer overflows.</p>
+            
+            <div class="note">
+                <strong>Key Features:</strong>
+                <ul>
+                    <li>Zero-cost abstractions: High-level features without runtime overhead.</li>
+                    <li>Move semantics: Efficient data handling by transferring ownership.</li>
+                    <li>Guaranteed memory safety: Compile-time checks prevent unsafe memory access.</li>
+                    <li>Threads without data races: Safe concurrency with ownership and borrowing.</li>
+                    <li>Pattern matching: Powerful control flow with match expressions.</li>
+                    <li>Type inference: Automatic type deduction for cleaner code.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="entry-point">
+        <div class="explanation">
+            <h2>Entry Point</h2>
+            <p>Every Rust program begins execution at the <code>main</code> function. This function serves as the entry point, similar to C and C++. The <code>println!</code> macro is used for output, and the exclamation mark indicates that it is a macro, not a function. Macros in Rust allow for metaprogramming, enabling code generation and manipulation at compile time.</p>
+        </div>
+        <div class="code">
+            <pre><code class="language-rust">
+fn main() {
+    println!("Hello, World!");
+}
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section" id="data-types">
+        <div class="explanation">
+            <h2>Data Types and Operations</h2>
+            <p>Rust is a statically typed language, meaning that all variables have a fixed type at compile time. However, Rust also supports type inference, so you don't always need to specify types explicitly. Rust's type system is designed to prevent errors and ensure safe memory access. Here are some basic data types in Rust:</p>
+        </div>
+        <div class="code">
+            <h3>Basic Types</h3>
+            <pre><code class="language-rust">
+// Integers
+let x: i32 = 42;        // 32-bit signed integer
+let y: u64 = 100;       // 64-bit unsigned integer
+
+// Floating-point
+let pi: f64 = 3.14159;  // 64-bit float
+
+// Boolean
+let is_true: bool = true;
+
+// Character
+let letter: char = 'A';
+
+// String types
+let string = String::from("Hello");  // Owned string
+let str_slice: &str = "World";       // String slice
+            </code></pre>
+
+            <h3>Type Inference</h3>
+            <pre><code class="language-rust">
+// Rust can infer types
+let inferred_type = 42; // i32 is inferred
+let float = 3.14;      // f64 is inferred
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section" id="control-structures">
+        <div class="explanation">
+            <h2>Control Structures</h2>
+            <p>Control structures in Rust are similar to those in other programming languages. They include <code>if</code> expressions, loops, and pattern matching. These structures allow you to control the flow of your program. Rust's pattern matching is particularly powerful, allowing for concise and expressive code.</p>
+        </div>
+        <div class="code">
+            <h3>If Expressions</h3>
+            <pre><code class="language-rust">
+let number = 7;
+
+if number < 5 {
+    println!("less than five");
+} else if number > 5 {
+    println!("greater than five");
+} else {
+    println!("equal to five");
+}
+
+// If expressions can return values
+let result = if number > 5 { "big" } else { "small" };
+            </code></pre>
+
+            <h3>Loops</h3>
+            <pre><code class="language-rust">
+// Loop (infinite)
+loop {
+    println!("forever");
+    break; // Exit the loop
+}
+
+// While loop
+let mut count = 0;
+while count < 5 {
+    println!("count: {}", count);
+    count += 1;
+}
+
+// For loop
+for i in 0..5 {
+    println!("iteration: {}", i);
+}
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section" id="functions">
+        <div class="explanation">
+            <h2>Functions and Closures</h2>
+            <p>Functions in Rust are defined using the <code>fn</code> keyword. They can take parameters and return values. Rust also supports closures, which are anonymous functions that can capture variables from their environment. Closures are flexible and can be used in many contexts where functions are used.</p>
+        </div>
+        <div class="code">
+            <h3>Basic Functions</h3>
+            <pre><code class="language-rust">
+fn add(x: i32, y: i32) -> i32 {
+    x + y  // Implicit return (no semicolon)
+}
+
+// Unit return type
+fn print_number(x: i32) {
+    println!("Number: {}", x);
+}
+            </code></pre>
+
+            <h3>Closures</h3>
+            <pre><code class="language-rust">
+let add_one = |x| x + 1;
+let result = add_one(5); // 6
+
+// Closure with explicit type annotation
+let multiply = |x: i32, y: i32| -> i32 {
+    x * y
+};
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section" id="data-structures">
+        <div class="explanation">
+            <h2>Standard Data Structures</h2>
+            <p>Rust provides several standard data structures, including arrays, vectors, and hash maps. These structures are used to store and manipulate collections of data. Vectors are particularly useful due to their dynamic nature, allowing for flexible data storage.</p>
+        </div>
+        <div class="code">
+            <h3>Arrays and Vectors</h3>
+            <pre><code class="language-rust">
+// Fixed-size array
+let array: [i32; 3] = [1, 2, 3];
+
+// Vector (dynamic array)
+let mut vec = Vec::new();
+vec.push(1);
+vec.push(2);
+
+// Vector macro initialization
+let vec = vec![1, 2, 3];
+            </code></pre>
+
+            <h3>HashMaps</h3>
+            <pre><code class="language-rust">
+use std::collections::HashMap;
+
+let mut scores = HashMap::new();
+scores.insert(String::from("Blue"), 10);
+scores.insert(String::from("Red"), 50);
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section" id="custom-types">
+        <div class="explanation">
+            <h2>Custom Types</h2>
+            <p>Rust allows you to define your own types using structs and enums. These custom types help you organize and manage complex data. Structs are used for creating complex data types, while enums are perfect for defining types that can be one of several variants.</p>
+        </div>
+        <div class="code">
+            <h3>Structs</h3>
+            <pre><code class="language-rust">
+struct Person {
+    name: String,
+    age: u32,
+}
+
+impl Person {
+    // Constructor
+    fn new(name: String, age: u32) -> Person {
+        Person { name, age }
+    }
+
+    // Method
+    fn introduce(&self) {
+        println!("I'm {} and I'm {} years old", self.name, self.age);
+    }
+}
+            </code></pre>
+
+            <h3>Enums</h3>
+            <pre><code class="language-rust">
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+// Pattern matching with enums
+let msg = Message::Write(String::from("hello"));
+match msg {
+    Message::Quit => println!("Quit"),
+    Message::Move { x, y } => println!("Move to ({}, {})", x, y),
+    Message::Write(text) => println!("Text message: {}", text),
+    Message::ChangeColor(r, g, b) => println!("Change color: {}, {}, {}", r, g, b),
+}
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section" id="memory-management">
+        <div class="explanation">
+            <h2>Memory Management and Ownership</h2>
+            <p>Rust's ownership system is its most unique feature. It enables memory safety without garbage collection. Understanding ownership is crucial for writing safe and efficient Rust code. The ownership model ensures that each value has a single owner, and when the owner goes out of scope, the value is automatically deallocated.</p>
+
+            <div class="important">
+                <p>Rust's ownership system is its most unique feature. It enables memory safety without garbage collection.</p>
+            </div>
+
+            <h3>Ownership Rules</h3>
+            <ul>
+                <li>Each value has a variable that is its owner</li>
+                <li>There can only be one owner at a time</li>
+                <li>When the owner goes out of scope, the value is dropped</li>
+            </ul>
+        </div>
+        <div class="code">
+            <pre><code class="language-rust">
+// Ownership example
+let s1 = String::from("hello");
+let s2 = s1; // s1 is moved to s2
+// println!("{}", s1); // This would cause an error!
+
+// Borrowing example
+fn print_string(s: &String) { // Borrowing with reference
+    println!("{}", s);
+}
+
+let s3 = String::from("hello");
+print_string(&s3); // Passing a reference
+println!("{}", s3); // s3 is still valid!
+            </code></pre>
+
+            <h3>The Borrow Checker</h3>
+            <pre><code class="language-rust">
+// Multiple immutable references are okay
+let s = String::from("hello");
+let r1 = &s;
+let r2 = &s;
+println!("{} and {}", r1, r2);
+
+// But you can't have mutable and immutable references in the same scope
+let mut s = String::from("hello");
+let r1 = &s; // immutable borrow
+let r2 = &mut s; // ERROR: cannot borrow `s` as mutable while it is borrowed as immutable
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section" id="videos">
+        <h2>Video Walkthroughs</h2>
+        <div class="video">
+            <h3>Running a "Hello, World" Program in Rust</h3>
+            <video width="640" height="360" controls>
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <p>This video provides a step-by-step guide to setting up your Rust environment and running your first "Hello, World" program. It covers installation, writing the code, and executing it in a terminal.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Practice Exercises</h2>
+        <div class="example">
+            <h3>Exercise 1: FizzBuzz</h3>
+            <p>Implement FizzBuzz using Rust's control structures. This exercise will help you practice using loops and pattern matching.</p>
+            <pre><code class="language-rust">
+fn fizzbuzz(n: u32) {
+    for i in 1..=n {
+        match (i % 3, i % 5) {
+            (0, 0) => println!("FizzBuzz"),
+            (0, _) => println!("Fizz"),
+            (_, 0) => println!("Buzz"),
+            (_, _) => println!("{}", i),
+        }
+    }
+}
+            </code></pre>
+        </div>
+
+        <div class="example">
+            <h3>Exercise 2: Temperature Converter</h3>
+            <p>Create a temperature converter using Rust structs and implementation. This exercise will help you understand how to work with custom types and methods.</p>
+            <pre><code class="language-rust">
+struct Temperature {
+    celsius: f64,
+}
+
+impl Temperature {
+    fn to_fahrenheit(&self) -> f64 {
+        (self.celsius * 9.0/5.0) + 32.0
+    }
+
+    fn from_fahrenheit(fahrenheit: f64) -> Temperature {
+        Temperature {
+            celsius: (fahrenheit - 32.0) * 5.0/9.0
+        }
+    }
+}
+            </code></pre>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Additional Resources</h2>
+        <ul>
+            <li><a href="https://doc.rust-lang.org/book/">The Rust Programming Language Book</a></li>
+            <li><a href="https://play.rust-lang.org/">Rust Playground</a> - Try Rust in your browser</li>
+            <li><a href="https://rust-by-example.github.io/">Rust by Example</a></li>
+            <li><a href="https://doc.rust-lang.org/rust-by-example/">Official Rust by Example</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>
